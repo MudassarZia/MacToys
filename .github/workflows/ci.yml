@@ -1,0 +1,16 @@
+name: Build and test
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  macos:
+    runs-on: macos-15
+    steps:
+      - uses: actions/checkout@v4
+      - name: Test core behavior
+        run: swift test
+      - name: Build universal app
+        run: ARCH=universal bash scripts/build-app.sh
